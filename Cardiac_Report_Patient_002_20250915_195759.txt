@@ -1,0 +1,77 @@
+--- CT Report ---
+CLINICAL REPORT
+
+PATIENT INFORMATION:
+Patient ID: Patient_002
+Age: 40 years
+Gender: Male
+
+MODALITY:
+CT
+
+CONDITION DIAGNOSED:
+Coronary Artery Disease
+
+ICD-10 CODE:
+I25
+
+FINDINGS:
+Findings are suggestive of coronary artery disease.
+Possible calcifications or narrowing were observed within the coronary arteries.
+
+The cardiac area was measured at 0.974, indicating a slightly enlarged cardiac silhouette.
+Image contrast was noted at 0.219, which is elevated and may be indicative of calcifications within the coronary vessels.
+CT imaging provided excellent visualization of these potential coronary calcifications.
+
+RECOMMENDATIONS:
+Further evaluation with coronary CT angiography (CCTA) is strongly recommended to further characterize the extent and severity of coronary artery disease and to assess for significant stenoses.
+
+Cardiology consultation is advised for comprehensive clinical assessment and management planning.
+
+Assessment of lipid profile and other cardiac risk factors (e.g., hypertension, diabetes, family history) is recommended to guide preventive strategies.
+
+Electronically Signed:
+John Doe, MD
+
+--- MRI Report ---
+CARDIAC MRI REPORT
+
+Patient ID: Patient_002
+Age: 40
+Gender: M
+Date of Report: 2023-10-27
+
+Modality: Cardiac MRI
+
+Clinical Indication: Evaluation for suspected coronary artery disease.
+
+Condition Diagnosed: Coronary Artery Disease (CAD)
+ICD-10 Code: I25
+
+FINDINGS:
+
+Cardiac MRI demonstrates findings suggestive of underlying coronary artery disease.
+
+Possible calcifications or narrowing were observed within the coronary arteries during the assessment.
+
+The calculated cardiac area measures 0.974, which is considered slightly enlarged for the patient's demographics.
+
+Image contrast was measured at 0.218, which is elevated and may further support the presence of calcifications within the vascular structures.
+
+This MRI study provided detailed tissue characterization and functional assessment of the myocardium and associated structures.
+
+IMPRESSION:
+
+Findings are indicative of coronary artery disease with evidence of possible vascular calcifications and slight cardiac enlargement.
+
+RECOMMENDATIONS:
+
+Further evaluation with coronary CT angiography is strongly recommended to more precisely delineate coronary anatomy and assess the extent of stenosis and calcification.
+
+Cardiology consultation is advised for comprehensive clinical correlation and management planning.
+
+Lipid profile and a thorough cardiac risk factor assessment should be performed.
+
+Electronically Signed By:
+
+John Doe, MD
