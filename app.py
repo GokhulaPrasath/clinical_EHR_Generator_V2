@@ -212,27 +212,6 @@ def login_page():
                             st.error("❌ Invalid username or password")
                 else:
                     st.warning("⚠️ Please enter both username and password")
-        
-        # Display predefined medical staff credentials for demo
-        with st.expander("🔑 Demo Credentials & Access Levels"):
-            st.write("**👑 Administrator (Full Access):**")
-            st.write("- Username: `admin` | Password: `admin123`")
-            st.write("- Username: `director` | Password: `director123`")
-            st.write("➡️ Can access: Dashboard, Patient Database, Cardiac Analysis, EHR Reports, **User Management**")
-            
-            st.write("**👨‍⚕️ Doctor (Clinical Access):**")
-            st.write("- Username: `dr_smith` | Password: `smith123`")
-            st.write("- Username: `dr_jones` | Password: `jones123`") 
-            st.write("➡️ Can access: Dashboard, Patient Database, Cardiac Analysis, EHR Reports")
-            
-            st.write("**🔧 Technician (Technical Access):**")
-            st.write("- Username: `tech_davis` | Password: `davis123`")
-            st.write("- Username: `tech_garcia` | Password: `garcia123`")
-            st.write("➡️ Can access: Dashboard, Patient Database, Cardiac Analysis, EHR Reports")
-            
-            st.write("**👤 Patient (Limited Access):**")
-            st.write("- Register with any Patient ID from your metadata")
-            st.write("➡️ Can access: Patient Dashboard, My Reports, My Studies")
     
     with tab2:
         with st.form("patient_registration_form"):
@@ -937,4 +916,5 @@ def user_management_page():
 
 
 if __name__ == "__main__":
+
     main()
