@@ -185,7 +185,7 @@ def estimate_cardiac_area(image):
     except Exception as e:
         print(f"Error estimating cardiac area: {e}")
         return 0.22  # Fallback to average
-
+        
 def extract_image_features(slices):
     """Extract features from image slices"""
     features = []
@@ -230,3 +230,4 @@ def validate_image_slices(slices):
         validation_results['valid_slices'] += 1
     
     return validation_results
+
