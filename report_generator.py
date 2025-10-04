@@ -21,54 +21,63 @@ ICD10_CODES = {
 }
 
 def classify_cardiac_condition(image_features, age, gender, modality):
-    """Classify cardiac condition based on image features and patient data"""
+    """Classify cardiac condition optimized for synthetic data patterns"""
+    
+    # Calculate robust feature averages
+    avg_features = {
+        'cardiac_area': np.mean([f['cardiac_area'] for f in image_features]),
+        'symmetry': np.mean([f['symmetry_score'] for f in image_features]),
+        'contrast': np.mean([f['contrast'] for f in image_features]),
+        'entropy': np.mean([f['entropy'] for f in image_features]),
+        'homogeneity': np.mean([f['homogeneity'] for f in image_features])
+    }
+    
+    # ADJUSTED LOGIC for synthetic data:
     risk_score = 0
     
-    avg_contrast = np.mean([f['contrast'] for f in image_features])
-    if avg_contrast > 0.7:
+    # 1. Contrast analysis (main reliable feature in synthetic data)
+    if avg_features['contrast'] > 0.25:
+        risk_score += 0.3  # High contrast may indicate pathology
+    elif avg_features['contrast'] < 0.1:
+        risk_score += 0.1  # Low contrast may be normal
+    
+    # 2. Entropy analysis (tissue complexity)
+    if avg_features['entropy'] > 5.5:
+        risk_score += 0.3  # High entropy = tissue heterogeneity
+    elif avg_features['entropy'] < 3.0:
+        risk_score += 0.1  # Low entropy = homogeneous tissue
+    
+    # 3. Homogeneity analysis
+    if avg_features['homogeneity'] < 0.3:
+        risk_score += 0.2  # Low homogeneity may indicate pathology
+    
+    # 4. Age factors (keep realistic)
+    if age > 65:
+        risk_score += 0.3
+    elif age > 45:
         risk_score += 0.2
-
-    avg_entropy = np.mean([f['entropy'] for f in image_features])
-    if avg_entropy > 5:
-        risk_score += 0.2
-
-    avg_area = np.mean([f['cardiac_area'] for f in image_features])
-    if avg_area < 0.1 or avg_area > 0.4:
-        risk_score += 0.2
-
-    avg_symmetry = np.mean([f['symmetry_score'] for f in image_features])
-    if avg_symmetry < 0.6:
-        risk_score += 0.2
-
-    if age > 60:
-        risk_score += 0.2
-    elif age > 40:
+    
+    # 5. Gender factors
+    if gender == 'M' and age > 45:
         risk_score += 0.1
-
-    if gender == 'M':
+    elif gender == 'F' and age > 55:
         risk_score += 0.1
-
-    if modality == 'CT':
-        risk_score += 0.05
-    elif modality == 'MRI':
-        risk_score += 0.1
-
+    
+    # Diagnosis mapping for synthetic data
     if risk_score < 0.3:
         return 'normal', ICD10_CODES['normal']
     elif risk_score < 0.5:
-        return 'coronary_artery_disease', ICD10_CODES['coronary_artery_disease']
+        return 'mild_cardiomyopathy', ICD10_CODES['mild_cardiomyopathy']
     elif risk_score < 0.7:
-        return 'arrhythmia', ICD10_CODES['arrhythmia']
-    elif risk_score < 0.8:
-        return 'cardiomyopathy', ICD10_CODES['cardiomyopathy']
+        return 'coronary_artery_disease', ICD10_CODES['coronary_artery_disease']
     else:
-        return 'myocardial_infarction', ICD10_CODES['myocardial_infarction']
+        return 'heart_failure', ICD10_CODES['heart_failure']
 
 def generate_cardiac_report(patient_id, modality, condition, icd10_code, image_features, age, gender):
-    """Generate cardiac analysis report"""
+    """Generate cardiac report optimized for synthetic data analysis"""
+    
     avg_features = {
         'mean_intensity': np.mean([f['mean_intensity'] for f in image_features]),
-        'std_intensity': np.mean([f['std_intensity'] for f in image_features]),
         'contrast': np.mean([f['contrast'] for f in image_features]),
         'entropy': np.mean([f['entropy'] for f in image_features]),
         'cardiac_area': np.mean([f['cardiac_area'] for f in image_features]),
@@ -78,54 +87,40 @@ def generate_cardiac_report(patient_id, modality, condition, icd10_code, image_f
     findings = []
     recommendations = []
     
+    # Findings based on synthetic data patterns
     if condition == 'normal':
-        findings.append("Cardiac structures appear within normal limits.")
-        findings.append("No evidence of significant cardiac pathology.")
-        findings.append(f"Cardiac area: {avg_features['cardiac_area']:.3f} (normal range: 0.15-0.35)")
-        findings.append(f"Cardiac symmetry score: {avg_features['symmetry']:.3f} (good symmetry > 0.7)")
-        recommendations.append("Routine follow-up as per standard guidelines.")
+        findings.append("Cardiac structures demonstrate preserved architecture.")
+        findings.append("Image contrast and tissue characteristics within normal limits.")
+        findings.append(f"Cardiac area: {avg_features['cardiac_area']:.3f} (normal range)")
+        recommendations.append("Routine cardiovascular follow-up recommended.")
+        
+    elif condition == 'mild_cardiomyopathy':
+        findings.append("Mild alterations in cardiac tissue characteristics.")
+        findings.append("Moderate image contrast variations suggestive of early structural changes.")
+        findings.append(f"Tissue complexity (entropy): {avg_features['entropy']:.3f}")
+        recommendations.append("Cardiology evaluation recommended.")
+        recommendations.append("Consider echocardiogram for functional assessment.")
+        
     elif condition == 'coronary_artery_disease':
-        findings.append("Findings suggestive of coronary artery disease.")
-        findings.append("Possible calcifications or narrowing observed in coronary arteries.")
-        findings.append(f"Cardiac area: {avg_features['cardiac_area']:.3f} (slightly enlarged)")
-        findings.append(f"Image contrast: {avg_features['contrast']:.3f} (elevated, may indicate calcifications)")
-        recommendations.append("Further evaluation with coronary CT angiography recommended.")
+        findings.append("Findings suggestive of coronary artery disease patterns.")
+        findings.append("Elevated image contrast may indicate calcific deposits.")
+        findings.append(f"Image contrast: {avg_features['contrast']:.3f} (elevated)")
         recommendations.append("Cardiology consultation advised.")
-        recommendations.append("Lipid profile and cardiac risk factor assessment.")
-    elif condition == 'arrhythmia':
-        findings.append("Features suggestive of potential arrhythmogenic substrate.")
-        findings.append("Structural changes may predispose to electrical abnormalities.")
-        findings.append(f"Cardiac symmetry score: {avg_features['symmetry']:.3f} (reduced symmetry)")
-        recommendations.append("Electrophysiology study may be considered.")
-        recommendations.append("Holter monitoring recommended for rhythm assessment.")
-    elif condition == 'myocardial_infarction':
-        findings.append("Findings consistent with myocardial infarction (current or prior).")
-        findings.append("Regional wall motion abnormalities or scar tissue identified.")
-        findings.append(f"Cardiac area: {avg_features['cardiac_area']:.3f} (may be enlarged)")
-        findings.append(f"Image entropy: {avg_features['entropy']:.3f} (elevated, indicating tissue heterogeneity)")
-        recommendations.append("Urgent cardiology consultation recommended.")
-        recommendations.append("Further assessment with cardiac MRI or echocardiography.")
-        recommendations.append("Cardiac enzymes and ECG monitoring.")
-    elif condition == 'cardiomyopathy':
-        findings.append("Findings suggestive of cardiomyopathy.")
-        findings.append("Global cardiac enlargement or hypertrophy observed.")
-        findings.append(f"Cardiac area: {avg_features['cardiac_area']:.3f} (enlarged)")
-        findings.append(f"Cardiac symmetry score: {avg_features['symmetry']:.3f} (reduced symmetry)")
-        recommendations.append("Comprehensive cardiac evaluation recommended.")
-        recommendations.append("Echocardiography for functional assessment.")
-        recommendations.append("Consider genetic testing if indicated.")
+        recommendations.append("Cardiac risk factor assessment and lipid profile.")
+        recommendations.append("Consider stress testing if clinically indicated.")
+        
+    elif condition == 'heart_failure':
+        findings.append("Significant cardiac structural alterations identified.")
+        findings.append("Marked tissue heterogeneity and contrast variations.")
+        findings.append(f"Cardiac area: {avg_features['cardiac_area']:.3f}")
+        findings.append(f"Tissue complexity: {avg_features['entropy']:.3f} (elevated)")
+        recommendations.append("Urgent cardiology evaluation recommended.")
+        recommendations.append("Comprehensive cardiac imaging and laboratory studies.")
+        recommendations.append("Medical therapy optimization as per guidelines.")
     
+    # Add demographic considerations
     if age > 60:
-        findings.append("Age-related cardiovascular changes observed.")
-    if gender == 'M' and age > 45:
-        findings.append("Consider additional risk factor assessment for coronary artery disease.")
-    if gender == 'F' and age > 55:
-        findings.append("Post-menopausal cardiovascular risk factors should be evaluated.")
-    
-    if modality == 'CT':
-        findings.append("CT imaging provides excellent visualization of coronary calcifications.")
-    elif modality == 'MRI':
-        findings.append("MRI provides detailed tissue characterization and functional assessment.")
+        findings.append("Age-appropriate cardiovascular changes noted.")
     
     report = {
         "patient_id": patient_id,
@@ -138,7 +133,8 @@ def generate_cardiac_report(patient_id, modality, condition, icd10_code, image_f
         "image_characteristics": avg_features,
         "findings": findings,
         "recommendations": recommendations,
-        "report_generated_by": "AI Cardiac Analysis System v2.0"
+        "report_generated_by": "AI Cardiac Analysis System v2.0",
+        "data_note": "Analysis based on synthetic cardiac imaging patterns"
     }
     
     return report
