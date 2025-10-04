@@ -10,14 +10,17 @@ from utils import clean_text
 # Configure Gemini AI (will be initialized in main app)
 genai.configure(api_key='AIzaSyDyVY2ZAFunydX53ncBlO1Y-hjgIlD1chM')
 
+# UPDATED ICD10_CODES - ADD THE MISSING KEYS
 ICD10_CODES = {
+    'normal': 'Z00.00',
+    'mild_cardiomyopathy': 'I42.9',
+    'coronary_artery_disease': 'I25.10', 
+    'heart_failure': 'I50.9',
+    'severe_cardiomyopathy': 'I42.8',
     'myocardial_infarction': 'I21',
-    'heart_failure': 'I50',
-    'coronary_artery_disease': 'I25',
     'arrhythmia': 'I49',
     'cardiomyopathy': 'I42',
-    'valvular_heart_disease': 'I35',
-    'normal': 'Z00'
+    'valvular_heart_disease': 'I35'
 }
 
 def classify_cardiac_condition(image_features, age, gender, modality):
