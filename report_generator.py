@@ -327,3 +327,4 @@ def generate_patient_report_both_modalities(patient_id, cardiac_results):
     
     final_report = "\n\n".join(reports)
     return final_report
+
