@@ -8,7 +8,7 @@ import streamlit as st
 from utils import clean_text
 
 # Configure Gemini AI (will be initialized in main app)
-genai.configure(api_key='AIzaSyDyVY2ZAFunydX53ncBlO1Y-hjgIlD1chM')
+genai.configure(api_key='AIzaSyBonnadhH8PflXMdFRgTZN7RAR-4HjkUYA')
 
 # UPDATED ICD10_CODES - ADD THE MISSING KEYS
 ICD10_CODES = {
@@ -327,4 +327,5 @@ def generate_patient_report_both_modalities(patient_id, cardiac_results):
     
     final_report = "\n\n".join(reports)
     return final_report
+
 
